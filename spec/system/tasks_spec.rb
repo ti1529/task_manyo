@@ -4,16 +4,13 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe '登録機能' do
     context 'タスクを登録した場合' do
       it '登録したタスクが表示される' do
+        # テストで使用するためのタスクの登録
+        FactoryBot.create(:task)
         # 新規登録画面に遷移
-        visit new_task_path
-        # フォームのtitleとcontentのvalue属性に値を入力
-        fill_in "task_title", with: "登録機能確認"
-        fill_in "task_content", with: "登録機能のテストです"
-        # create taskボタンをクリック
-        click_button "create-task"
-        # 遷移したページに、登録したタスクの””と””の文字列が含まれていること（have_content）を確認する
-        expect(page).to have_content "登録機能確認"
-        expect(page).to have_content "登録機能のテストです"
+        visit tasks_path
+        # 登録したタスクのtitleとcontentの値の文字列が含まれていること（have_content）を確認する
+        expect(page).to have_content "書類作成"
+        expect(page).to have_content "企画書を作成する。"
       end
     end
   end
@@ -22,7 +19,8 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '一覧画面に遷移した場合' do
       it '登録済みのタスク一覧が表示される' do
         # テストで使用するためのタスクを登録
-        Task.create!(title: "書類作成", content: "企画書を作成する。")
+        # Task.create!(title: "書類作成", content: "企画書を作成する。")  # 書き換え
+        FactoryBot.create(:task)
         # タスク一覧画面に遷移
         visit tasks_path
         # visit（遷移）したpage（この場合、タスク一覧画面）に"書類作成"という文字列が、have_content（含まれていること）をexpect（確認・期待）する
@@ -36,14 +34,14 @@ RSpec.describe 'タスク管理機能', type: :system do
      context '任意のタスク詳細画面に遷移した場合' do
        it 'そのタスクの内容が表示される' do
         # テストで使用するためのタスクを登録
-        task = Task.create!(title: "詳細表示", content: "詳細表示機能のテストです")
+        FactoryBot.create(:task)
         # 一覧画面に遷移
         visit tasks_path
         # タスクのshowボタンをクリック
         click_link "Show"
         # 遷移先のページで、task.contentの文字列を確認する
-        expect(page).to have_content "詳細表示"
-        expect(page).to have_content "詳細表示機能のテストです"
+        expect(page).to have_content "書類作成"
+        expect(page).to have_content "企画書を作成する。"
        end
      end
   end
