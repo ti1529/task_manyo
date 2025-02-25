@@ -3,7 +3,17 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.order(created_at: "DESC").page(params[:page])
+    # params[]に値がない場合は従来どおり、値があればソートを変更する
+    if params[:sort_deadline_on]
+      # 終了期限を昇順にソートする
+      @tasks = Task.all.order(deadline_on: "ASC").page(params[:page])
+    elsif params[:sort_priority]
+      # 優先度を降順にソートする
+      @tasks = Task.all.order(priority: "DESC").page(params[:page])
+    else
+      # 作成日時を降順にソートする
+      @tasks = Task.all.order(created_at: "DESC").page(params[:page])
+    end
   end
 
   # GET /tasks/1 or /tasks/1.json
