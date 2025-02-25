@@ -17,6 +17,12 @@ ja:
               blank: を入力してください
             content:
               blank: を入力してください
+            deadline_on:
+              blank: を入力してください
+            priority:
+              blank: を入力してください
+            status:
+              blank: を入力してください
 
   # 全てのmodelで共通して使用するattributes
   attributes:
