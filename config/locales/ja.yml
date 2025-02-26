@@ -66,6 +66,10 @@ ja:
     destroy:
       notice: タスクを削除しました
 
+    params[:search][:status]:
+      not_started: 未着手
+    
+
   helpers:
     label: 
       task: 

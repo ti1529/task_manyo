@@ -2,6 +2,29 @@
 
 <h1><%= t".title" %></h1>
 
+<%= form_with(scope: :search, method: :get, local: true) do |f| %>
+
+  <div class="field">
+    <%= f.label Task.human_attribute_name(:status) %>
+    <%= f.select :status, Task.statuses.keys.map {|key|
+      [Task.statuses_i18n[key], key]
+      },
+      include_blank: true  
+    %>
+  </div>
+
+  <div class="field">
+    <%= f.label Task.human_attribute_name(:title) %>
+    <%= f.search_field :title %>
+  </div>
+
+  <div class="action">
+    <%= f.submit "検索", id: "search_task" %>
+  </div>
+
+
+<% end %>
+
 <table>
   <thead>
     <tr>
