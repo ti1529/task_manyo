@@ -6,27 +6,27 @@ class TasksController < ApplicationController
     # 検索機能
     if params[:search].present?
       if params[:search][:title].present? && params[:search][:status].present?
-        @tasks = Task.where(status: params[:search][:status]).where("title LIKE ?", "%#{params[:search][:title]}%").page(params[:page])
+        @tasks = Task.search_by_status(params[:search][:status]).search_by_title(params[:search][:title])
       elsif params[:search][:title].present?
-        @tasks = Task.where("title LIKE ?", "%#{params[:search][:title]}%").page(params[:page])
-
+        @tasks = Task.search_by_title(params[:search][:title])
       elsif params[:search][:status].present? 
-        @tasks = Task.where(status: params[:search][:status]).page(params[:page])
-      end
-      
-    else
-      # params[:sort〜]に値がない場合は従来どおり、値があればソートを変更する
-      if params[:sort_deadline_on]
-        # 終了期限を昇順にソートする
-        @tasks = Task.all.order(deadline_on: "ASC").page(params[:page])
-      elsif params[:sort_priority]
-        # 優先度を降順にソートする
-        @tasks = Task.all.order(priority: "DESC").page(params[:page])
-      else
-        # 作成日時を降順にソートする
-        @tasks = Task.all.order(created_at: "DESC").page(params[:page])
+        @tasks = Task.search_by_status(params[:search][:status])
       end
 
+    else
+      @tasks = Task.all
+    end
+
+    # params[:sort〜]に値がない場合は従来どおり、値があればソートを変更する
+    if params[:sort_deadline_on]
+      # 終了期限を昇順にソートする
+      @tasks = @tasks.order_by_deadline_desc.page(params[:page])
+    elsif params[:sort_priority]
+      # 優先度を降順にソートする
+      @tasks = @tasks.order_by_priority_desc.page(params[:page])
+    else
+      # 作成日時を降順にソートする
+      @tasks = @tasks.order_by_created_asc.page(params[:page])
     end
   end
 
