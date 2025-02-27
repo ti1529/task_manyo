@@ -17,17 +17,15 @@ class TasksController < ApplicationController
       @tasks = Task.all
     end
 
-    # params[:sort〜]に値がない場合は従来どおり、値があればソートを変更する
+    # params[:sort〜]に値があれば、ソートを変更する
     if params[:sort_deadline_on]
-      # 終了期限を昇順にソートする
-      @tasks = @tasks.order_by_deadline_asc.page(params[:page])
+      @tasks = @tasks.order_by_deadline_asc
     elsif params[:sort_priority]
-      # 優先度を降順にソートする
-      @tasks = @tasks.order_by_priority_desc.page(params[:page])
-    else
-      # 作成日時を降順にソートする
-      @tasks = @tasks.order_by_created_desc.page(params[:page])
+      @tasks = @tasks.order_by_priority_desc
     end
+
+    # 作成日時を降順にソートする
+    @tasks = @tasks.order_by_created_desc.page(params[:page])
   end
 
   # GET /tasks/1 or /tasks/1.json

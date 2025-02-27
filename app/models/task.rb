@@ -10,6 +10,7 @@ class Task < ApplicationRecord
 
   scope :order_by_deadline_asc, -> { order(deadline_on: "ASC")}
   scope :order_by_priority_desc, -> { order(priority: "DESC")}
+  
   scope :order_by_created_desc, -> {order(created_at: "DESC")}
 
   scope :search_by_title, -> (title){ where("title LIKE ?", "%#{title}%")}

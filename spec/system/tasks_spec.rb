@@ -163,6 +163,9 @@ RSpec.describe 'タスク管理機能', type: :system do
         # 遷移先のページで、task.contentの文字列を確認する
         expect(page).to have_content "first_task_title"
         expect(page).to have_content "first_task_content"
+        expect(page).to have_content "2022-02-18"
+        expect(page).to have_content "中"
+        expect(page).to have_content "未着手"
        end
      end
   end
