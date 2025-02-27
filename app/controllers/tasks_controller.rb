@@ -3,7 +3,29 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.order(created_at: "DESC").page(params[:page])
+    # 検索機能
+    if params[:search].present?
+      if params[:search][:title].present? && params[:search][:status].present?
+        @tasks = Task.search_by_status(params[:search][:status]).search_by_title(params[:search][:title])
+      elsif params[:search][:title].present?
+        @tasks = Task.search_by_title(params[:search][:title])
+      elsif params[:search][:status].present? 
+        @tasks = Task.search_by_status(params[:search][:status])
+      end
+
+    else
+      @tasks = Task.all
+    end
+
+    # params[:sort〜]に値があれば、ソートを変更する
+    if params[:sort_deadline_on]
+      @tasks = @tasks.order_by_deadline_asc
+    elsif params[:sort_priority]
+      @tasks = @tasks.order_by_priority_desc
+    end
+
+    # 作成日時を降順にソートする
+    @tasks = @tasks.order_by_created_desc.page(params[:page])
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -65,6 +87,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:title, :content)
+      params.require(:task).permit(:title, :content, :deadline_on, :priority, :status)
     end
 end
