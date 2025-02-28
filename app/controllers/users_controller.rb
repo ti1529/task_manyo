@@ -4,9 +4,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params) #登録フォームの入力値
+    @user = User.new(user_params)
     if @user.save
-      # ユーザ登録に成功した場合
+      log_in(@user)
       redirect_to user_path(@user.id)
     else
       render :new

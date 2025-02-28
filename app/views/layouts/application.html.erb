@@ -18,6 +18,20 @@
       </ul>
     </nav>
 
+    <%# ---フラッシュメッセージ---- %>
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "#{key}") %>
+    <% end %>
+
+    <%# -----------ログインリンク--------- %>
+    <% if logged_in? %>
+      <%= link_to "ユーザ詳細", user_path(current_user.id)  %>
+      <%= link_to "logout", session_path(current_user.id), method: :delete %>
+    <% else %>
+      <%= link_to "Sign up: ユーザ登録", new_user_path %>
+      <%= link_to "login", new_session_path %>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
