@@ -9,6 +9,12 @@ ja:
         deadline_on: 終了期限
         priority: 優先度
         status: ステータス
+      user:
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード（確認）
+
     errors:
       models:
         task:
@@ -74,17 +80,26 @@ ja:
     link:
       new: アカウント登録
       show: アカウント設定
+    new:
+      title: アカウント登録ページ
     show:
-      title:
+      title: アカウント詳細ページ
+      name: 名前
+      email: メールアドレス 
+      edit: 編集
     edit:
-      title: 
+      title: アカウント編集ページ
+      back: 戻る
 
   sessions:
     link:
       new: ログイン
       destroy: ログアウト
-    destroy:
-      link:
+    new:
+      title: ログインページ
+      email: メールアドレス
+      password: パスワード
+      submit: ログイン
     
 
   helpers:

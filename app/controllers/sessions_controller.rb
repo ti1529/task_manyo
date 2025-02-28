@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     if user&.authenticate(params[:session][:password])
       # ログイン成功時の場合
       log_in(user)
-      redirect_to user_path(user.id)
+      redirect_to tasks_path
     else
       # ログイン失敗時の場合
       flash.now[:danger] = "ログインに失敗しました"
