@@ -40,8 +40,6 @@ ja:
         completed: 完了
 
   common:
-    tasks_index: タスク一覧
-    new_task: タスクを登録する
     show: 詳細
     edit: 編集
     destroy: 削除
@@ -49,7 +47,10 @@ ja:
     back: 戻る
 
   # view関連
-  tasks: 
+  tasks:
+    link:
+      index: タスク一覧
+      new: タスクを登録する
     index:
       title: タスク一覧ページ
     new:
@@ -68,6 +69,22 @@ ja:
 
     params[:search][:status]:
       not_started: 未着手
+
+  users:
+    link:
+      new: アカウント登録
+      show: アカウント設定
+    show:
+      title:
+    edit:
+      title: 
+
+  sessions:
+    link:
+      new: ログイン
+      destroy: ログアウト
+    destroy:
+      link:
     
 
   helpers:

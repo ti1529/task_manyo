@@ -13,23 +13,23 @@
     <%# ----グローバルナビゲーション----- %>
     <nav>
       <ul>
-        <li><%= link_to t("common.tasks_index"), tasks_path, id: "tasks-index" %></li>
-        <li><%= link_to t("common.new_task"), new_task_path, id: "new-task" %></li>
+        <% if logged_in? %>        
+          <li><%= link_to t("tasks.link.index"), tasks_path, id: "tasks-index" %></li>
+          <li><%= link_to t("tasks.link.new"), new_task_path, id: "new-task" %></li>
+          <li><%= link_to t("users.link.show"), user_path(current_user.id), id: "account-setting" %></li>
+          <li><%= link_to t("sessions.link.destroy"), session_path(current_user.id), method: :delete, id: "sign-out" %></li>
+
+        <% else %>
+          <li><%= link_to t("users.link.new"), new_user_path, id: "sign-up" %></li>
+          <li><%= link_to t("sessions.link.new"), new_session_path, id: "sign-in" %></li>
+        
+        <% end %>
       </ul>
     </nav>
 
     <%# ---フラッシュメッセージ---- %>
     <% flash.each do |key, value| %>
       <%= content_tag(:div, value, class: "#{key}") %>
-    <% end %>
-
-    <%# -----------ログインリンク--------- %>
-    <% if logged_in? %>
-      <%= link_to "ユーザ詳細", user_path(current_user.id)  %>
-      <%= link_to "logout", session_path(current_user.id), method: :delete %>
-    <% else %>
-      <%= link_to "Sign up: ユーザ登録", new_user_path %>
-      <%= link_to "login", new_session_path %>
     <% end %>
 
     <%= yield %>
