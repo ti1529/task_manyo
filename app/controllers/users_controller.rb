@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   skip_before_action :login_required, only: [:new, :create]
   before_action :correct_user, only: [:show, :edit, :destroy]
   before_action :set_user, only: [:show, :edit, :destroy]
+  before_action :logout_required, only: [:new]
 
   def new
     @user = User.new
@@ -12,6 +13,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       log_in(@user)
+      flash[:notice] = "アカウントを登録しました"
       redirect_to tasks_path
     else
       render :new

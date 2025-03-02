@@ -29,6 +29,19 @@ ja:
               blank: を入力してください
             status:
               blank: を入力してください
+        user:
+          attributes:
+            name: 
+              blank: を入力してくだい
+            email:
+              blank: を入力してください
+              taken: はすでに使用されています
+            password:
+              blank: を入力してください
+              too_short: は%{count}文字以上で入力してください
+            password_confirmation:
+              confirmation: と%{attribute}の入力が一致しません
+            
 
   # 全てのmodelで共通して使用するattributes
   attributes:

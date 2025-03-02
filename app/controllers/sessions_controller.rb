@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
   skip_before_action :login_required, only: [:new, :create]
+  before_action :logout_required, only: [:new]
 
   def new
   end
@@ -10,6 +11,7 @@ class SessionsController < ApplicationController
     if user&.authenticate(params[:session][:password])
       # ログイン成功時の場合
       log_in(user)
+      flash[:notce] = "ログインしました"
       redirect_to tasks_path
     else
       # ログイン失敗時の場合
@@ -20,7 +22,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session.delete(:user_id)
-    flash[:notice] = "ログアウトしました！"
+    flash[:notice] = "ログアウトしました"
     redirect_to new_session_path
 
   end

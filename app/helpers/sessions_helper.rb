@@ -15,6 +15,10 @@ module SessionsHelper
   def current_user?(user)
     user == current_user
   end
-    
+
+  #このtaskのuser_idは、ログインユーザのidと等しいですか？
+  def current_users_task?(task)
+    current_user.id == task.user_id
+  end
 
 end
