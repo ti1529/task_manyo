@@ -13,7 +13,12 @@
     <%# ----グローバルナビゲーション----- %>
     <nav>
       <ul>
-        <% if logged_in? %>        
+        <% if logged_in? %>
+          <% if current_user.admin? %>
+            <li><%= link_to "ユーザ一覧", admin_users_path, id: "users-index" %></li>
+            <li><%= link_to "ユーザを登録する", new_admin_user_path, id: "add-user" %></li>
+          <% end %>
+
           <li><%= link_to t("tasks.link.index"), tasks_path, id: "tasks-index" %></li>
           <li><%= link_to t("tasks.link.new"), new_task_path, id: "new-task" %></li>
           <li><%= link_to t("users.link.show"), user_path(current_user.id), id: "account-setting" %></li>
@@ -29,7 +34,7 @@
 
     <%# ---フラッシュメッセージ---- %>
     <% flash.each do |key, value| %>
-      <%= content_tag(:div, value, class: "#{key}") %>
+      <%= content_tag(:p, value, id: "#{key}") %>
     <% end %>
 
     <%= yield %>

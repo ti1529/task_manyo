@@ -14,6 +14,7 @@ ja:
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード（確認）
+        admin: 管理者権限
 
     errors:
       models:
@@ -64,6 +65,9 @@ ja:
     destroy: 削除
     confirm_destroy: 本当に削除してもよろしいですか？
     back: 戻る
+    is_admin: あり
+    not_admin: なし
+
 
   # view関連
   tasks:
@@ -103,6 +107,8 @@ ja:
     edit:
       title: アカウント編集ページ
       back: 戻る
+    update:
+      notice: アカウントを更新しました
 
   sessions:
     link:
@@ -113,7 +119,29 @@ ja:
       email: メールアドレス
       password: パスワード
       submit: ログイン
-    
+    create:
+      notice: ログインしました
+      danger: メールアドレスまたはパスワードに誤りがあります
+    destroy:
+      notice: ログアウトしました
+  
+  admin:
+    users:
+      index:
+        title: ユーザ一覧ページ
+        delete_confirm: 本当に削除してもよろしいですか？
+      new:
+        title: ユーザ登録ページ
+      create:
+        notice: ユーザを登録しました
+      show:
+        title: ユーザ詳細ページ
+      edit:
+        title: ユーザ編集ページ
+      update:
+        notice: ユーザを更新しました
+      destroy:
+        notice: ユーザを削除しました    
 
   helpers:
     label: 
