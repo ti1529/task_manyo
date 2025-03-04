@@ -18,9 +18,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def index
-    @users = User.all
-    @user_tasks_count = User.joins(:tasks).group("users.id").count
-    
+    @users = User.includes(:tasks)    
   end
 
   def show
@@ -45,8 +43,7 @@ class Admin::UsersController < ApplicationController
       flash[:notice] = t(".notice")
       redirect_to admin_users_path
     else
-      @users = User.all
-      @user_tasks_count = User.joins(:tasks).group("users.id").count
+      @users = User.includes(:tasks)
       render :index
     end
 
