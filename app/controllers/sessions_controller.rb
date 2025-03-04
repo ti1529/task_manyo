@@ -11,18 +11,18 @@ class SessionsController < ApplicationController
     if user&.authenticate(params[:session][:password])
       # ログイン成功時の場合
       log_in(user)
-      flash[:notice] = t(".notice")
+      flash[:notce] = "ログインしました"
       redirect_to tasks_path
     else
       # ログイン失敗時の場合
-      flash.now[:danger] = t(".danger")
+      flash.now[:danger] = "ログインに失敗しました"
       render :new
     end
   end
 
   def destroy
     session.delete(:user_id)
-    flash[:notice] = t(".notice")
+    flash[:notice] = "ログアウトしました"
     redirect_to new_session_path
 
   end

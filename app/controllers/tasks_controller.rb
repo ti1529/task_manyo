@@ -45,12 +45,12 @@ class TasksController < ApplicationController
 
   # POST /tasks or /tasks.json
   def create
-    @task = current_user.tasks.new(task_params) # 作成したユーザのuser_idも登録するように変更
+    @task = Task.new(task_params)
 
     respond_to do |format|
       if @task.save
         format.html { redirect_to tasks_path, notice: t(".notice") }
-        format.json { render :show, status: :created, location: @task }
+        format.json { render :show, status: :created, location: @task } # 不要？？
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @task.errors, status: :unprocessable_entity }

@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
 
   skip_before_action :login_required, only: [:new, :create]
-  before_action :correct_user, only: [:show, :edit, :update]
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :correct_user, only: [:show, :edit, :destroy]
+  before_action :set_user, only: [:show, :edit, :destroy]
   before_action :logout_required, only: [:new]
 
   def new
@@ -27,16 +27,16 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
 
-    if @user.update(user_params)
-      flash[:notice] = t(".notice")
-      redirect_to user_path(@user.id)
-    else
-      render :edit
-    end
   end
 
+  def destroy
+    # 後ほど作成
+    # @user.destroy
+
+    # flash[:notice] = "アカウント削除"
+    # redirect_to new_session_path
+  end
 
 
 
