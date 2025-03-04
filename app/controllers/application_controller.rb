@@ -19,6 +19,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  
+  def admin_required
+    unless current_user.admin?
+      flash[:notice] = "管理者以外アクセスできません"
+      redirect_to tasks_path
+    end
+  end
 
 end
