@@ -1,0 +1,50 @@
+<h1><%= t(".title") %></h1>
+
+<p>
+  <strong><%= User.human_attribute_name(:name) %>: </strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong><%= User.human_attribute_name(:email) %>: </strong> 
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong><%= User.human_attribute_name(:admin) %>: </strong> 
+  <%= @user.admin ? t("common.is_admin") : t("common.not_admin") %>
+</p>
+
+
+<table>
+  <thead>
+    <tr>
+      <th><%= t("activerecord.attributes.task.title") %></th>
+      <th><%= Task.human_attribute_name(:content) %></th>
+      <th><%= t("attributes.created_at") %></th>
+      <th><%= Task.human_attribute_name(:deadline_on) %></th>
+      <th><%= Task.human_attribute_name(:priority) %></th>
+      <th><%= Task.human_attribute_name(:status) %></th>
+
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.content %></td>
+        <td><%= task.created_at %></td>
+        <td><%= task.deadline_on %></td>
+        <td><%= task.priority_i18n %></td>
+        <td><%= task.status_i18n %></td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+<%= link_to t("common.back"), admin_users_path, id: "back" %>

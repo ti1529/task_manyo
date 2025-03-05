@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
+  before_action :correct_task, only: [:show, :edit]
 
   # GET /tasks or /tasks.json
   def index
@@ -14,7 +15,8 @@ class TasksController < ApplicationController
       end
 
     else
-      @tasks = Task.all
+      # @tasks = Task.all
+      @tasks = current_user.tasks
     end
 
     # params[:sort〜]に値があれば、ソートを変更する
@@ -43,12 +45,12 @@ class TasksController < ApplicationController
 
   # POST /tasks or /tasks.json
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.new(task_params) # 作成したユーザのuser_idも登録するように変更
 
     respond_to do |format|
       if @task.save
         format.html { redirect_to tasks_path, notice: t(".notice") }
-        format.json { render :show, status: :created, location: @task } # 不要？？
+        format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @task.errors, status: :unprocessable_entity }
@@ -89,4 +91,16 @@ class TasksController < ApplicationController
     def task_params
       params.require(:task).permit(:title, :content, :deadline_on, :priority, :status)
     end
+
+    def correct_task
+      # unless current_user.id == Task.find_by(id: params[:id]).user_id
+      unless current_users_task?(Task.find_by(id: params[:id]))
+        flash[:notice] = "アクセス権限がありません"
+        redirect_to tasks_path
+      end
+    end
+
+
+
+
 end

@@ -1,0 +1,14 @@
+<h1><%= t(".title") %></h1>
+
+<p>
+  <strong><%= t(".name") %>: </strong>
+  <%= @user.name %>
+</p>
+
+<p>
+  <strong><%= t(".email") %>: </strong> 
+  <%= @user.email %>
+</p>
+
+<%= link_to t(".edit"), edit_user_path(@user.id), id: "edit-user" %>
+
