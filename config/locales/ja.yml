@@ -33,7 +33,7 @@ ja:
         user:
           attributes:
             name: 
-              blank: を入力してくだい
+              blank: を入力してください
             email:
               blank: を入力してください
               taken: はすでに使用されています
