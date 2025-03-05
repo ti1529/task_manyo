@@ -1,11 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe 'タスク管理機能', type: :system do
+
+  let!(:user) { FactoryBot.create(:user)}
+
   describe '登録機能' do
+    before do
+      # ログインページへ遷移
+      visit new_session_path
+      # メールアドレス、パスワードを入力（一般ユーザ）
+      fill_in "session_email", with: user.email
+      fill_in "session_password", with: "password"
+      # ログインボタンをクリック
+      find("#create-session").click
+  
+    end
+  
     context 'タスクを登録した場合' do
       it '登録したタスクが表示される' do
         # テストで使用するためのタスクの登録
-        FactoryBot.create(:task)
+        FactoryBot.create(:task, user_id: user.id)
         # 新規登録画面に遷移
         visit tasks_path
         # 登録したタスクのtitleとcontentの値の文字列が含まれていること（have_content）を確認する
@@ -17,9 +31,20 @@ RSpec.describe 'タスク管理機能', type: :system do
 
   describe '一覧表示機能' do
 
-    let!(:first_task){ FactoryBot.create(:task)}
-    let!(:second_task){ FactoryBot.create(:second_task)}
-    let!(:third_task){ FactoryBot.create(:third_task)}
+    before do
+      # ログインページへ遷移
+      visit new_session_path
+      # メールアドレス、パスワードを入力（一般ユーザ）
+      fill_in "session_email", with: user.email
+      fill_in "session_password", with: "password"
+      # ログインボタンをクリック
+      find("#create-session").click
+  
+    end
+
+    let!(:first_task){ FactoryBot.create(:task, user_id: user.id)}
+    let!(:second_task){ FactoryBot.create(:second_task, user_id: user.id)}
+    let!(:third_task){ FactoryBot.create(:third_task, user_id: user.id)}
 
     before do
       visit tasks_path
@@ -40,7 +65,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
 
     context '新たにタスクを作成した場合' do
-      let!(:new_task){ FactoryBot.create(:task, title: "new_task", created_at: Time.current)}
+      let!(:new_task){ FactoryBot.create(:task, title: "new_task", created_at: Time.current, user_id: user.id)}
       it '新しいタスクが一番上に表示される' do
         visit tasks_path
         # 最初（一番上）のtrについて、tdタグに new_taskが表示されていることを検証
@@ -59,9 +84,9 @@ RSpec.describe 'タスク管理機能', type: :system do
 
           # 終了期限というリンクをクリック
           click_link "終了期限"
+          sleep 1
           # tbodyのtrを取得
           # 最初がthird_task
-          sleep 1
           within all("tbody tr").first do 
             expect(page).to have_selector "td", text: "third_task"
           end
@@ -152,10 +177,22 @@ RSpec.describe 'タスク管理機能', type: :system do
   end
 
   describe '詳細表示機能' do
+
+    before do
+      # ログインページへ遷移
+      visit new_session_path
+      # メールアドレス、パスワードを入力（一般ユーザ）
+      fill_in "session_email", with: user.email
+      fill_in "session_password", with: "password"
+      # ログインボタンをクリック
+      find("#create-session").click
+  
+    end
+
      context '任意のタスク詳細画面に遷移した場合' do
        it 'そのタスクの内容が表示される' do
         # テストで使用するためのタスクを登録
-        FactoryBot.create(:task)
+        FactoryBot.create(:task, user_id: user.id)
         # 一覧画面に遷移
         visit tasks_path
         # タスクのshowボタンをクリック
