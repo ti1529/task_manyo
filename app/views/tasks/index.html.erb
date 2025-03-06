@@ -16,10 +16,15 @@
     <%= f.search_field :title %>
   </div>
 
+  <div class="field">
+    <%= f.label Task.human_attribute_name(:label) %>
+    <%= f.select :label, current_user.labels.collect { |label| [label.name, label.id]}, include_blank: true %>
+
+  </div>
+
   <div class="action">
     <%= f.submit "検索", id: "search_task" %>
   </div>
-
 
 <% end %>
 
