@@ -11,51 +11,73 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <div class="field form-group row">
+    <%= form.label :title, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-6">
+      <%= form.text_field :title, class:"form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content %>
+  <div class="field form-group row">
+    <%= form.label :content, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-6">
+      <%= form.text_area :content, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="field" >
-    <%= form.label :deadline_on %>
-    <%= form.date_field :deadline_on %>
+  <div class="field form-group row" >
+    <%= form.label :deadline_on, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-4">
+      <%= form.date_field :deadline_on, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="field" >
-    <%= form.label :priority %>
-    <%=
-      form.select :priority, Task.priorities.keys.map {|key|
-        [Task.priorities_i18n[key], key]
-        },
-        include_blank: true
-    %>
+  <div class="field form-group row" >
+    <%= form.label :priority, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-4">
+
+      <%= form.select :priority,
+        Task.priorities.keys.map {|key| [Task.priorities_i18n[key], key] },
+        { include_blank: true },
+        { class: "form-control" }
+      %>
+    </div>
   </div>
 
-  <div class="field" >
-    <%= form.label :status %>
-    <%=
-      form.select :status, Task.statuses.keys.map {|key|
-        [Task.statuses_i18n[key], key]
-        },
-        include_blank: true
-    %>
+  <div class="field form-group row" >
+    <%= form.label :status, class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-4">
+        <%= form.select :status,
+          Task.statuses.keys.map {|key| [Task.statuses_i18n[key], key] },
+          { include_blank: true },
+          { class: "form-control" }
+        %>
+
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :label %>
-    <% current_user.labels.each do |label| %>
-      <%= form.check_box :label_ids, { multiple: true, include_hidden: false }, label[:id] %>
-      <%= label.name %>
-    <% end %>
+  <div class="field form-group row">
+    <div class="col-sm-2">
+      <%= form.label :label %>
+    </div>
+    <div class="col-sm-8">
+      <div class="form-check">
+        <% current_user.labels.each do |label| %>
+          <%= form.check_box :label_ids,
+            { multiple: true, include_hidden: false },
+            label[:id],
+            { class: "form-check-input" }
+          %>
+          <label for=<%="task_label_ids_#{label[:id] }"%> class="form-check-label mr-4"><%= "#{label.name}" %></label>
+        <% end %>
 
+      </div>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit id: id %>
+  <div class="actions form-group row">
+    <div class="col-sm-2 ">
+      <%= form.submit id: id, class: "btn btn-primary" %>
+    </div>
   </div>
 <% end %>
