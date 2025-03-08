@@ -13,12 +13,14 @@
 
 
 <%= form_with(model: label, local: true) do |f| %>
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+  <div class="field form-group row">
+    <%= f.label :name, class: "col-sm-1 col-form-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :name, placeholder: "name" %>
+    </div>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit id: id, class: "btn btn-primary" %>
   </div>
 <% end %>
