@@ -2,4 +2,4 @@
 
 <%= render "form", user: @user, id: "update-user" %>
 
-<%= link_to t(".back"), user_path(@user.id), id: "back" %>
+<%= link_to t(".back"), user_path(@user.id), id: "back", class: "btn btn-outline-secondary" %>
