@@ -1,7 +1,7 @@
 <h1><%= t(".title") %></h1>
 
-<table>
-  <thead>
+<table class="table w-50">
+  <thead class="thead-dark">
     <tr>
       <th><%= Label.human_attribute_name(:name) %></th>
       <th><%= t("common.tasks_count")%></th>
@@ -16,8 +16,8 @@
         <td><%= label.name %></td>
         <td><%= label.tasks.size %></td>
 
-        <td><%= link_to t("common.edit"), edit_label_path(label.id), class: "edit-label" %></td>
-        <td><%= link_to t("common.destroy"), label, class: "destroy-label", method: :delete, data: { confirm: t(".destroy_confirm") } %></td>
+        <td><%= link_to t("common.edit"), edit_label_path(label.id), class: "edit-label btn btn-primary btn-sm" %></td>
+        <td><%= link_to t("common.destroy"), label, class: "destroy-label btn btn-danger btn-sm", method: :delete, data: { confirm: t(".destroy_confirm") } %></td>
 
       </tr>
     <% end %>
