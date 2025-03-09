@@ -31,6 +31,10 @@ RSpec.describe 'タスク管理機能', type: :system do
 
   describe '一覧表示機能' do
 
+    let!(:first_task){ FactoryBot.create(:task, user_id: user.id)}
+    let!(:second_task){ FactoryBot.create(:second_task, user_id: user.id)}
+    let!(:third_task){ FactoryBot.create(:third_task, user_id: user.id)}
+
     before do
       # ログインページへ遷移
       visit new_session_path
@@ -40,14 +44,6 @@ RSpec.describe 'タスク管理機能', type: :system do
       # ログインボタンをクリック
       find("#create-session").click
   
-    end
-
-    let!(:first_task){ FactoryBot.create(:task, user_id: user.id)}
-    let!(:second_task){ FactoryBot.create(:second_task, user_id: user.id)}
-    let!(:third_task){ FactoryBot.create(:third_task, user_id: user.id)}
-
-    before do
-      visit tasks_path
     end
 
     context '一覧画面に遷移した場合' do
@@ -159,7 +155,6 @@ RSpec.describe 'タスク管理機能', type: :system do
           select "未着手", from: "search_status"
           # 検索フォームの検索ボタンをクリック
           find("#search_task").click
-
           # タスクの一覧の中に
           within all("tbody").first do
             # ステータスの検証
@@ -173,6 +168,23 @@ RSpec.describe 'タスク管理機能', type: :system do
           end       
         end
       end
+
+      context 'ラベルで検索をした場合' do
+        it "そのラベルの付いたタスクがすべて表示される" do
+          # toとnot_toのマッチャを使って表示されるものとされないものの両方を確認する
+          label = user.labels.create(name: "label_a")
+          third_task.tasks_labels.create(label_id: label.id)
+          visit tasks_path
+          select label.name, from: "search_label"
+          find("#search_task").click
+
+          expect(page).to have_content third_task.title
+          expect(page).not_to have_content first_task.title
+          expect(page).not_to have_content second_task.title 
+        end
+      end
+ 
+
     end
   end
 

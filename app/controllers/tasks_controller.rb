@@ -6,6 +6,10 @@ class TasksController < ApplicationController
   def index
     # 検索機能
     if params[:search].present?
+      if params[:search][:label] == ""
+        params[:search][:label] = nil
+      end
+      
       if params[:search][:title].present? && params[:search][:status].present? && params[:search][:label]
         label = Label.find(params[:search][:label])
         @tasks = label.tasks.search_by_status(params[:search][:status]).search_by_title(params[:search][:title])
