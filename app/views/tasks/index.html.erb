@@ -5,10 +5,9 @@
   <div class="row">
     <div class="field col-2 d-flex flex-column">
       <%= f.label Task.human_attribute_name(:status) %>
-      <%= f.select :status, Task.statuses.keys.map {|key|
-        [Task.statuses_i18n[key], key]
-        },
-        include_blank: true  
+      <%= f.select :status,
+            Task.statuses.keys.map {|key|[Task.statuses_i18n[key], key] },
+            include_blank: true  
       %>
     </div>
 
@@ -19,7 +18,10 @@
 
     <div class="field col-4 d-flex flex-column">
       <%= f.label Task.human_attribute_name(:label) %>
-      <%= f.select :label, current_user.labels.collect { |label| [label.name, label.id]}, include_blank: true %>
+      <%= f.select :label,
+            current_user.labels.collect { |label| [label.name, label.id]},
+            include_blank: true
+      %>
     </div>
 
   </div>
