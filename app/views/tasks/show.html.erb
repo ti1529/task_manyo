@@ -31,6 +31,13 @@
   <%= @task.status_i18n %>
 </p>
 
+<p>
+  <strong><%= Task.human_attribute_name(:label) %>: </strong>
+  <% @task.labels.each do |label| %>
+    <%= label.name %>
+  <% end %>
+</p>
 
-<%= link_to t("common.edit"), edit_task_path(@task), id: "edit-task" %> |
-<%= link_to t("common.back"), tasks_path, id: "back" %>
+
+<%= link_to t("common.edit"), edit_task_path(@task), id: "edit-task", class: "btn btn-primary " %> |
+<%= link_to t("common.back"), tasks_path, id: "back", class: "btn btn-outline-secondary" %>

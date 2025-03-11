@@ -9,12 +9,15 @@ ja:
         deadline_on: 終了期限
         priority: 優先度
         status: ステータス
+        label: ラベル
       user:
         name: 名前
         email: メールアドレス
         password: パスワード
         password_confirmation: パスワード（確認）
         admin: 管理者権限
+      label:
+        name: 名前
 
     errors:
       models:
@@ -67,6 +70,7 @@ ja:
     back: 戻る
     is_admin: あり
     not_admin: なし
+    tasks_count: タスク数
 
 
   # view関連
@@ -142,6 +146,25 @@ ja:
         notice: ユーザを更新しました
       destroy:
         notice: ユーザを削除しました    
+
+  labels:
+    link:
+      index: ラベル一覧
+      new: ラベルを登録する
+    new:
+      title: ラベル登録ページ
+    create:
+      notice: ラベルを登録しました
+    index:
+      title: ラベル一覧ページ
+      destroy_confirm: 本当に削除してもよろしいですか？
+    edit:
+      title: ラベル編集ページ
+    update:
+      notice: ラベルを更新しました
+    destroy:
+      notice: ラベルを削除しました
+
 
   helpers:
     label: 

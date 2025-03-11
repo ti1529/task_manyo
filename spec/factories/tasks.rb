@@ -1,6 +1,4 @@
-# 「FactoryBotを使用します」という記述
 FactoryBot.define do
-  # 作成するテストデータの名前を「task」とします
   # 「task」のように存在するクラス名のスネークケースをテストデータ名とする場合、そのクラスのテストデータが作成されます
   factory :task do
     title { 'first_task_title' }

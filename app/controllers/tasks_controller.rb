@@ -6,12 +6,22 @@ class TasksController < ApplicationController
   def index
     # 検索機能
     if params[:search].present?
-      if params[:search][:title].present? && params[:search][:status].present?
-        @tasks = Task.search_by_status(params[:search][:status]).search_by_title(params[:search][:title])
+      if params[:search][:label] == ""
+        params[:search][:label] = nil
+      end
+      
+      if params[:search][:title].present? && params[:search][:status].present? && params[:search][:label]
+        label = Label.find(params[:search][:label])
+        @tasks = label.tasks.search_by_status(params[:search][:status]).search_by_title(params[:search][:title])
+        # @tasks = Task.search_by_status(params[:search][:status]).search_by_title(params[:search][:title])
       elsif params[:search][:title].present?
         @tasks = Task.search_by_title(params[:search][:title])
       elsif params[:search][:status].present? 
         @tasks = Task.search_by_status(params[:search][:status])
+      elsif params[:search][:label].present?
+        label = Label.find(params[:search][:label])
+        @tasks = label.tasks
+
       end
 
     else
@@ -89,7 +99,9 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:title, :content, :deadline_on, :priority, :status)
+      # params[:task][:labal_ids]がnilなら,[]を代入
+      params[:task][:label_ids] ||= []
+      params.require(:task).permit(:title, :content, :deadline_on, :priority, :status, { label_ids: [] })
     end
 
     def correct_task

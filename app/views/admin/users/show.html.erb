@@ -16,7 +16,7 @@
 </p>
 
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th><%= t("activerecord.attributes.task.title") %></th>
@@ -45,6 +45,4 @@
   </tbody>
 </table>
 
-
-
-<%= link_to t("common.back"), admin_users_path, id: "back" %>
+<%= link_to t("common.back"), admin_users_path, id: "back", class: "btn btn-outline-secondary" %>

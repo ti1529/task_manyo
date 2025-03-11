@@ -1,0 +1,26 @@
+
+<% if label.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(label.errors.count, "label") %> prohibited this label from being saved:</h2>
+
+    <ul>
+      <% label.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+<%= form_with(model: label, local: true) do |f| %>
+  <div class="field form-group row">
+    <%= f.label :name, class: "col-sm-1 col-form-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :name, placeholder: "name" %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit id: id, class: "btn btn-primary" %>
+  </div>
+<% end %>
